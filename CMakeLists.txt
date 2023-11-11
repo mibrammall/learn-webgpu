@@ -18,3 +18,7 @@ if (MSVC)
 else()
     target_compile_options(App PRIVATE -Wall -Wextra -pedantic)
 endif()
+
+add_subdirectory(external/glfw)
+
+target_link_libraries(App PRIVATE glfw)
