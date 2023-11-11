@@ -20,5 +20,10 @@ else()
 endif()
 
 add_subdirectory(external/glfw)
+add_subdirectory(external/webgpu)
 
-target_link_libraries(App PRIVATE glfw)
+
+target_link_libraries(App PRIVATE glfw webgpu)
+
+target_copy_webgpu_binaries(App)
+
