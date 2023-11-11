@@ -1,4 +1,6 @@
 #include <GLFW/glfw3.h>
+#include <webgpu/webgpu.h>
+
 #include <iostream>
 
 int main()
@@ -18,12 +20,29 @@ int main()
         return 1;
     }
 
+    WGPUInstanceDescriptor desc = {};
+    desc.nextInChain = nullptr;
+
+    WGPUInstance instance = wgpuCreateInstance(&desc);
+
+    if (!instance)
+    {
+        std::cerr << "Could not initialize WebGPU!" << std::endl;
+        return 1;
+    }
+
+    // 4. Display the object (WGPUInstance is a simple pointer, it may be
+    // copied around without worrying about its size).
+    std::cout << "WGPU instance: " << instance << std::endl;
+
     while (!glfwWindowShouldClose(window))
     {
         // Check whether the user clicked on the close button (and any other
         // mouse/key event, which we don't use so far)
         glfwPollEvents();
     }
+
+    wgpuInstanceRelease(instance);
 
     glfwDestroyWindow(window);
 
